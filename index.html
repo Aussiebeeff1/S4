@@ -8,21 +8,42 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.js" integrity="sha512-H05oT7BAjM9Ai1IaFX9zr61NtE2e1P0MkTz3AZXBnseaJSAOt2FGMFJ+vVGutaJxEGA1jxUiYsTBYQNE08/Erw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         class Demo extends Phaser.Scene {
+            preload(){
+                // this.load.path = './assets/';
+                // this.load.image('mh', 'mousehouse.jpg');
+                this.load.image('mh', 'background/mousehouse.jpg');
+            }
+
+            
             create() {
+                this.add.image(0,0,'mh').setOrigin(0,0)
+
+                // let bg = this.add.image(
+                //     400,//x
+                //     250,//y
+                //     "mh",//imagename
+                // )
+                // bg.setScale(0.4)
+
+                
                 this.meep = this.add.text(10,10,'🐁').setOrigin(0.5,0.5);
                 this.input.setDefaultCursor('none');
                 this.input.on('pointerdown', (event) => {
                     this.tweens.add({
                         targets: this.meep,
-                        scale: 2,
-                        duration: 100
+                        scale: 10,
+                        duration: 100,
+                        alpha: 0.3,
+                        
                     });
                 });
+
                 this.input.on('pointerup', (event) => {
                     this.tweens.add({
                         targets: this.meep,
                         scale: 1,
-                        duration: 100
+                        duration: 100,
+                        alpha: 1
                     });
                 });
 
@@ -56,7 +77,7 @@
                     this.tweens.add({
                         targets: dropping,
                         alpha: {from: 0.5, to: 0},
-                        duration: 5000,
+                        duration: 3000,
                         ease: 'Cubic.in',
                         onComplete: () => dropping.destroy()
                     });
